@@ -35,13 +35,18 @@ class Hangman:
     ask_letter()
         Asks the user for a letter.
     '''
-    def __init__(self, word_list, num_lives=5):
+    def __init__(self, word_list, num_lives = 5):
         self.word_list = word_list
         self.num_lives = num_lives
         self.word = random.choice(word_list)
-        self.word_guessed = ['_' for guess in range(len(self.word))]
+        self.word_guessed = ['_' for letter in range(len(self.word))]
         self.num_letters = len(set(self.word))
         self.list_of_guesses = []
+
+        print("The mistery word has {num_letters} charecters".format(num_letters=self.num_letters))
+        print("{word_guessed}".format(word_guessed=self.word_guessed))
+
+
 
     def check_letter(self, letter) -> None:
         '''
@@ -55,18 +60,18 @@ class Hangman:
             The letter to be checked
 
         '''
-        guess = guess.lower()
-        if guess in self.word:
-            print("Good guess! {guess} is in the word".format(guess=guess))
-            for letter in range(len(self.word)):
-                if self.word[letter] == guess:
-                    self.word_guessed[letter] = guess
+        letter = letter.lower()
+        if letter in self.word:
+            print("Good guess! {letter} is in the word".format(letter=letter))
+            for i in range(len(self.word)):
+                if self.word[i] == letter:
+                    self.word_guessed[i] = letter
             self.num_letters -= 1
         else:
             self.num_lives -= 1
-            print("Sorry, {guess} is not in the word.".format(guess=guess))
+            print("Sorry, {letter} is not in the word.".format(letter=letter))
             print("You have {lives} lives left.".format(lives=self.num_lives))
-
+        
     def ask_letter(self):
         '''
         Asks the user for a letter and checks two things:
@@ -75,26 +80,37 @@ class Hangman:
         If it passes both checks, it calls the check_letter method.
         '''
         while True:
-            guess = input("Guess a letter:")
-            if len(guess) != 1 or not guess.isalpha():
+            letter = input("Guess a letter:")
+            if len(letter) != 1 or not letter.isalpha():
                 print("Invalid letter. Please, enter a single alphabetical character.")
-            elif guess in self.list_of_guesses:
+            elif letter in self.list_of_guesses:
                 print("You already tried this letter!")
             else:
-                self.check_letter(guess)
-                self.list_of_guesses.append(guess)
+                self.check_letter(letter)
+                self.list_of_guesses.append(letter)
 
 def play_game(word_list):
     game = Hangman(word_list, num_lives=5)
     while True:
         if game.num_lives == 0:
-            print("You lost!")
+            print("You lost! The word was {word}".format(word=game.word))
+
             break
-        elif game.num_letters > 0:
-            game.ask_letter()
+        elif game.num_letters == 0:
+            print("Congratulations! You won the game!")
+            break
         else:
-            print("Congratulations. You won the game!")
-            break
+            valid_input = False
+            while not valid_input:
+                letter = input("Guess a letter:")
+                if len(letter) != 1 or not letter.isalpha():
+                    print("Invalid input. Please enter a single alphabetical character.")
+                elif letter in game.list_of_guesses:
+                    print("You already tried this letter!")
+                else:
+                    game.check_letter(letter)
+                    game.list_of_guesses.append(letter)
+                    valid_input = True
 
 if __name__ == '__main__':
     word_list = ['apple', 'banana', 'orange', 'pear', 'strawberry', 'watermelon']
