@@ -10,6 +10,9 @@ For milestone_1 a repositiry was created in github, in order to trackour changes
 The milestone_2.py takes a random word from a list called word_list and print it. Then the input function was used for the user to enter a letter with the following conditions assigned by using if-else statements. The letter has to be of lenght one and must be alphabetic. The random was imported at the very beggining of the code.
 
 '''
+
+
+
 import random
 
 word_list = ['banana', 'mango', 'blueberries', 'strawbwrries', 'melon']
@@ -24,6 +27,9 @@ if len(letter) == 1 and letter.isalpha():
     print("Good guess!")
 else:
     print("Oops! That is not a valid input.")
+
+
+
 '''
 
 # Milestone_3
@@ -32,6 +38,10 @@ The milestone_3.py is consisting of two functions the check_letter and ask_lette
 The ask_letter function takes no argument. It uses the input function nested in a while loop, asking the user to guess a letter with same conditions assigned in milestone_2.py except this time if the input is valid, it breaks out of the loop but if the input is invalid, it keeps looping until the conditions are met.
 
 '''
+
+
+
+
 def check_letter(guess):
     leetter = letter.lower()
     if letter in word:
@@ -54,6 +64,9 @@ word = 'pineapple'
 
 letter = ask_letter()
 check_letter(letter)
+
+
+
 '''
 # Milestone_4
 In milestone_4.py the class Hangman was created and initialising the following attributes word, word_guessed, num_letters, num_lives, word_list and list_of_guesses.
@@ -63,6 +76,11 @@ Then the method check_letter was created taking the letter as a parameter. An if
 As for the method ask_letter is responsible for asking the user to input a letter as a guess, validating the input, and calling the check_letter method of the same class to check if the guessed letter is in the target word or not. If the guessed letter is not in the target word, it decreases the number of remaining lives by 1. It also keeps track of the guessed letters in the list_of_guesses attribute. The ask_letter method runs in an infinite loop until the game is over, which happens when the number of remaining lives reaches 0 or when the word is guessed correctly. 
 
 '''
+
+
+
+
+
 import random
 
 class Hangman:
@@ -103,6 +121,10 @@ class Hangman:
             else:
                 self.check_letter(letter)
                 self.list_of_guesses.append(letter) 
+
+
+
+
 '''
 # Milestone_5
 The function play_game was added which run all the code to run the game as expected.
@@ -110,6 +132,10 @@ The play_game function takes in a list of words (word_list) as an argument, init
 In this implementation, the valid_input variable is set to False at the start of each loop. The program then enters a second while loop that will continue looping until valid_input is set to True. Within this loop, the program checks if the input is a single alphabetical character and if it hasn't already been guessed. If these conditions are met, the check_letter method is called, and valid_input is set to True, exiting the second while loop and continuing the game loop. If the input is invalid, the program prints a message and the second while loop continues.
 
 '''
+
+
+
+
 def play_game(word_list):
     game = Hangman(word_list, num_lives=5)
     while True:
@@ -136,5 +162,9 @@ def play_game(word_list):
 if __name__ == '__main__':
     word_list = ['apple', 'banana', 'orange', 'pear', 'strawberry', 'watermelon']
     play_game(word_list)
+
+
+
+
 '''
 
